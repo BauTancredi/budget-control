@@ -1,18 +1,41 @@
 import React, { useState } from "react";
+import shortid from "shortid";
+import Error from "./Error";
 
-const Form = () => {
+const Form = ({ addNewExpense }) => {
   const [expense, setExpense] = useState({
     name: "",
     amount: 0,
   });
 
+  const [error, setError] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      expense.amount < 1 ||
+      isNaN(expense.amount) ||
+      expense.name.trim() === ""
+    ) {
+      setError(true);
+      return;
+    }
+    setError(false);
+
+    expense.id = shortid.generate();
+
+    addNewExpense(expense);
+    setExpense({
+      name: "",
+      amount: 0,
+    });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Add expenses</h2>
+      {error ? <Error message="Both fields are mandatory." /> : null}
       <div className="campo">
         <label>Expense</label>
         <input
