@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import shortid from "shortid";
 import Error from "./Error";
 
-const Form = ({ addNewExpense }) => {
+const Form = ({ setNewExpense, setCreateExpense }) => {
   const [expense, setExpense] = useState({
     name: "",
     amount: 0,
@@ -25,7 +25,8 @@ const Form = ({ addNewExpense }) => {
 
     expense.id = shortid.generate();
 
-    addNewExpense(expense);
+    setNewExpense(expense);
+    setCreateExpense(true);
     setExpense({
       name: "",
       amount: 0,
