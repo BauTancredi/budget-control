@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import Error from "./Error";
 
-const Question = () => {
+const Question = ({ setBudget, setRemaining, setShowQuestion }) => {
   const [amount, setAmount] = useState(0);
   const [error, setError] = useState(false);
 
@@ -17,6 +17,10 @@ const Question = () => {
     }
 
     setError(false);
+
+    setBudget(amount);
+    setRemaining(amount);
+    setShowQuestion(false);
   };
 
   return (
